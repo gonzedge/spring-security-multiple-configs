@@ -7,15 +7,16 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 
 @Configuration
 @EnableWebMvcSecurity
-@Order(2)
-public class FormLoginSecurity extends DemoSecurityConfigurer {
+@Order(1)
+public class ApiSecurity extends DemoSecurityConfigurer {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .antMatcher("/api/**")
             .authorizeRequests()
-            .antMatchers("/home").permitAll()
+            .antMatchers("/api/home").permitAll()
             .anyRequest().authenticated()
             .and()
-            .formLogin();
+            .httpBasic();
     }
 }
